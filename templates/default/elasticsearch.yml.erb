@@ -1,0 +1,44 @@
+# -*- YAML -*-
+
+cluster:
+  name:  <%= @node[:elasticsearch][:cluster_name] %>
+
+path:
+  home:   <%= @node[:elasticsearch][:install_dir] %>
+  conf:   <%= @node[:elasticsearch][:config_dir] %>
+  logs:   <%= @node[:elasticsearch][:log_dir] %>
+  data:   <%= @node[:elasticsearch][:data_dir] %>
+
+node:
+  data:  true
+  
+http:
+  enabled: <%= @node[:elasticsearch][:http][:enabled] %>
+  port: <%= @node[:elasticsearch][:http][:port] %>
+  max_content_length: <%= @node[:elasticsearch][:http][:max_content_length] %>
+
+# Set gateway.type to one of: [none, local, fs, hadoop, s3]
+gateway:
+  type: local
+  recover_after_nodes: 1
+  recovery_after_time: 5m
+  expected_nodes: 1     
+
+bootstrap:
+  # Set this property to true to lock the memory.
+  # You should also make sure that the ElasticSearch process is allowed to lock
+  # the memory, eg. by using `ulimit -l unlimited`.
+  mlockall: <%= @node[:elasticsearch][:bootstrap][:mlockall] %>
+    
+index:
+  number_of_shards:  <%= @node[:elasticsearch][:index][:number_of_shards] %>
+  number_of_replicas: <%= @node[:elasticsearch][:index][:number_of_replicas] %>
+  
+network:
+  bind_host:    _local_
+  publish_host: _local_
+
+transport:
+  tcp:
+    port:     9300-9400
+    compress: true
