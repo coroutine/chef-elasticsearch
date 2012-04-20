@@ -51,4 +51,4 @@ default[:elasticsearch][:discovery][:zen][:ping][:multicast][:address] = nil
 
 # To do unicast, disable multicast and include hosts in an array in the
 # following format: ["host1", "host2:port", "host3[portX-portY]"]
-default[:elasticsearch][:discovery][:zen][:ping][:unicase][:hosts] = nil
+default[:elasticsearch][:discovery][:zen][:ping][:unicast][:hosts] = nil
