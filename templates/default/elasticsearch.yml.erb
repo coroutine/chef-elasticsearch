@@ -24,6 +24,22 @@ gateway:
   recovery_after_time: 5m
   expected_nodes: 1     
 
+# Discovery
+<% if @node[:elasticsearch][:discovery][:zen][:ping][:multicast][:enabled] %>
+discovery.zen.minimum_master_nodes.: <%= @node[:elasticsearch][:discovery][:zen][:minimum_master_nodes] %>
+discovery.zen.ping.timeout: <%= @node[:elasticsearch][:discovery][:zen][:ping][:timeout] %>
+discovery.zen.ping.multicast.enabled: <%= @node[:elasticsearch][:discovery][:zen][:ping][:multicast][:enabled] %>
+discovery.zen.ping.multicast.group: <%= @node[:elasticsearch][:discovery][:zen][:ping][:multicast][:group] %>
+discovery.zen.ping.multicast.port: <%= @node[:elasticsearch][:discovery][:zen][:ping][:multicast][:port] %>
+discovery.zen.ping.multicast.ttl: <%= @node[:elasticsearch][:discovery][:zen][:ping][:multicast][:ttl] %>
+<% if @node[:elasticsearch][:discovery][:zen][:ping][:multicast][:address] %>
+discovery.zen.ping.multicast.address: <%= @node[:elasticsearch][:discovery][:zen][:ping][:multicast][:address] %>
+<% end %>
+
+<% elsif @node[:elasticserach][:discovery][:zen][:ping][:unicast][:hosts] %>
+discovery.zen.ping.unicast.hosts: <%= @node[:elasticserach][:discovery][:zen][:ping][:unicast][:hosts] %>
+<% end %>
+
 bootstrap:
   # Set this property to true to lock the memory.
   # You should also make sure that the ElasticSearch process is allowed to lock

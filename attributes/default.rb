@@ -36,3 +36,19 @@ default[:elasticsearch][:index][:number_of_replicas] = 0
 
 default[:elasticsearch][:cluster_name]= "default"
 default[:elasticsearch][:log_level]   = "DEBUG"
+
+default[:elasticsearch][:master]   = true
+default[:elasticsearch][:data]   = true
+
+# Discovery
+default[:elasticsearch][:discovery][:zen][:minimum_master_nodes] = 1
+default[:elasticsearch][:discovery][:zen][:ping][:timeout] = "3s"
+default[:elasticsearch][:discovery][:zen][:ping][:multicast][:enabled] = false
+default[:elasticsearch][:discovery][:zen][:ping][:multicast][:group] = "224.2.2.4"
+default[:elasticsearch][:discovery][:zen][:ping][:multicast][:port] = "54328"
+default[:elasticsearch][:discovery][:zen][:ping][:multicast][:ttl] = "3"
+default[:elasticsearch][:discovery][:zen][:ping][:multicast][:address] = nil
+
+# To do unicast, disable multicast and include hosts in an array in the
+# following format: ["host1", "host2:port", "host3[portX-portY]"]
+default[:elasticsearch][:discovery][:zen][:ping][:unicase][:hosts] = nil
