@@ -33,20 +33,6 @@ include_recipe "java::default"
   end
 end
 
-# Write config files
-template "#{node['elasticsearch']['config_dir']}/elasticsearch.yml" do
-  source  "elasticsearch.yml.erb"
-  owner   "root"
-  group   "root"
-  action  :create
-end
-template "#{node['elasticsearch']['config_dir']}/logging.yml" do
-  source  "logging.yml.erb"
-  owner   "root"
-  group   "root"
-  action  :create
-end
-
 remote_file "/tmp/elasticsearch-#{node[:elasticsearch][:version]}.tar.gz" do
   source    "http://cloud.github.com/downloads/elasticsearch/elasticsearch/elasticsearch-#{node['elasticsearch']['version']}.tar.gz"
   mode      "0644"
@@ -71,6 +57,24 @@ bash "extract elasticsearch" do
   not_if{ File.exists? "#{node[:elasticsearch][:install_dir]}/bin/elasticsearch" }
 end
 
-# Now, set supervisord to run elasticsearch with something like:
-#   /opt/elasticsearch/bin/elasticsearch -f -Xmx1g -Xms1g
-#   /opt/elasticsearch/bin/elasticsearch -f -Xmx256m -Xms256m -Des.config=/etc/elasticsearch/elasticsearch.yml
+# Write config files
+template "#{node['elasticsearch']['config_dir']}/elasticsearch.yml" do
+  source  "elasticsearch.yml.erb"
+  owner   "root"
+  group   "root"
+  action  :create
+end
+template "#{node['elasticsearch']['config_dir']}/logging.yml" do
+  source  "logging.yml.erb"
+  owner   "root"
+  group   "root"
+  action  :create
+end
+
+# Now, configure supervisord to run elasticsearch with something like:
+#
+#   [program:logstash_elasticsearch]
+#   directory=/opt/elasticsearch
+#   command=/opt/elasticsearch/bin/elasticsearch -f
+#   environment=ES_MAX_MEM=1G, ES_MIN_MEM=256M
+#
