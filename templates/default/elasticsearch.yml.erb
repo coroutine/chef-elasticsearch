@@ -10,7 +10,12 @@ path:
   data:   <%= @node[:elasticsearch][:data_dir] %>
 
 node:
+  <% if @node[:elasticsearch][:master] %>
+  master: true
+  <% end %>
+  <% if @node[:elasticsearch][:data] %>
   data:  true
+  <% end %>
   
 http:
   enabled: <%= @node[:elasticsearch][:http][:enabled] %>
@@ -36,8 +41,8 @@ discovery.zen.ping.multicast.ttl: <%= @node[:elasticsearch][:discovery][:zen][:p
 discovery.zen.ping.multicast.address: <%= @node[:elasticsearch][:discovery][:zen][:ping][:multicast][:address] %>
 <% end %>
 
-<% elsif @node[:elasticserach][:discovery][:zen][:ping][:unicast][:hosts] %>
-discovery.zen.ping.unicast.hosts: <%= @node[:elasticserach][:discovery][:zen][:ping][:unicast][:hosts] %>
+<% elsif @node[:elasticsearch][:discovery][:zen][:ping][:unicast][:hosts] %>
+discovery.zen.ping.unicast.hosts: <%= @node[:elasticsearch][:discovery][:zen][:ping][:unicast][:hosts] %>
 <% end %>
 
 bootstrap:

@@ -11,7 +11,7 @@ See `attributes/default.rb`
 
 Recipes
 =======
-The `default` recipe in this cookbook fetches and Installs the elasticserach 
+The `default` recipe in this cookbook fetches and Installs the elasticsearch 
 tarball from github and writes config files.
 
 License and Author
