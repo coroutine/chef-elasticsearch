@@ -26,12 +26,12 @@ http:
 gateway:
   type: local
   recover_after_nodes: 1
-  recovery_after_time: 5m
+  recover_after_time: 5m
   expected_nodes: 1     
 
 # Discovery
 <% if @node[:elasticsearch][:discovery][:zen][:ping][:multicast][:enabled] %>
-discovery.zen.minimum_master_nodes.: <%= @node[:elasticsearch][:discovery][:zen][:minimum_master_nodes] %>
+discovery.zen.minimum_master_nodes: <%= @node[:elasticsearch][:discovery][:zen][:minimum_master_nodes] %>
 discovery.zen.ping.timeout: <%= @node[:elasticsearch][:discovery][:zen][:ping][:timeout] %>
 discovery.zen.ping.multicast.enabled: <%= @node[:elasticsearch][:discovery][:zen][:ping][:multicast][:enabled] %>
 discovery.zen.ping.multicast.group: <%= @node[:elasticsearch][:discovery][:zen][:ping][:multicast][:group] %>
