@@ -40,6 +40,12 @@ default[:elasticsearch][:log_level]   = "DEBUG"
 default[:elasticsearch][:master]   = true
 default[:elasticsearch][:data]   = true
 
+# Network
+default[:elasticsearch][:network][:bind_host] = "_local_"
+default[:elasticsearch][:network][:publish_host] = "_local_"
+# specify 'host' to set both 'bind_host' and 'publish_host' as the same value
+default[:elasticsearch][:network][:host] = nil
+
 # Discovery
 default[:elasticsearch][:discovery][:zen][:minimum_master_nodes] = 1
 default[:elasticsearch][:discovery][:zen][:ping][:timeout] = "3s"

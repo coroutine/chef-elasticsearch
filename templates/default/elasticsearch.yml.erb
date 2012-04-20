@@ -54,10 +54,14 @@ bootstrap:
 index:
   number_of_shards:  <%= @node[:elasticsearch][:index][:number_of_shards] %>
   number_of_replicas: <%= @node[:elasticsearch][:index][:number_of_replicas] %>
-  
+
+<% if @node[:elasticsearch][:network][:host] %>
+network.host: <%= @node[:elasticsearch][:network][:host] %>
+<% else %>
 network:
-  bind_host:    _local_
-  publish_host: _local_
+  bind_host: <%= @node[:elasticsearch][:network][:bind_host] %>
+  publish_host: <%= @node[:elasticsearch][:network][:publish_host] %>
+<% end %>
 
 transport:
   tcp:
